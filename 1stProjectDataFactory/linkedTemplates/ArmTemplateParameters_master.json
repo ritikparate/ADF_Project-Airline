@@ -1,0 +1,45 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "1stProjectDataFactory"
+		},
+		"lls_azure_sql_password": {
+			"value": ""
+		},
+		"localRuntime_password": {
+			"value": ""
+		},
+		"ls_datalake_accountKey": {
+			"value": ""
+		},
+		"api details_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com"
+		},
+		"lls_azure_sql_properties_typeProperties_server": {
+			"value": "firstadfproject.database.windows.net"
+		},
+		"lls_azure_sql_properties_typeProperties_database": {
+			"value": "AdfProjectDB"
+		},
+		"lls_azure_sql_properties_typeProperties_userName": {
+			"value": "ritik"
+		},
+		"localRuntime_properties_typeProperties_host": {
+			"value": "C:\\ADFProjectRAWData"
+		},
+		"localRuntime_properties_typeProperties_userId": {
+			"value": "Aryan"
+		},
+		"ls_datalake_properties_typeProperties_url": {
+			"value": "https://adfprojectsdl.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

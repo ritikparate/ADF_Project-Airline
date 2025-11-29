@@ -1,0 +1,132 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "1stProjectDataFactory"
+		},
+		"lls_azure_sql_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'lls_azure_sql'"
+		},
+		"localRuntime_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'localRuntime'"
+		},
+		"ls_datalake_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_datalake'"
+		},
+		"api details_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://raw.githubusercontent.com"
+		},
+		"lls_azure_sql_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "firstadfproject.database.windows.net"
+		},
+		"lls_azure_sql_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "AdfProjectDB"
+		},
+		"lls_azure_sql_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "ritik"
+		},
+		"localRuntime_properties_typeProperties_host": {
+			"type": "string",
+			"defaultValue": "C:\\ADFProjectRAWData"
+		},
+		"localRuntime_properties_typeProperties_userId": {
+			"type": "string",
+			"defaultValue": "Aryan"
+		},
+		"ls_datalake_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adfprojectsdl.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "1stProjectDataFactory_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"lls_azure_sql_password": {
+						"value": "[parameters('lls_azure_sql_password')]"
+					},
+					"ls_datalake_accountKey": {
+						"value": "[parameters('ls_datalake_accountKey')]"
+					},
+					"api details_properties_typeProperties_url": {
+						"value": "[parameters('api details_properties_typeProperties_url')]"
+					},
+					"lls_azure_sql_properties_typeProperties_server": {
+						"value": "[parameters('lls_azure_sql_properties_typeProperties_server')]"
+					},
+					"lls_azure_sql_properties_typeProperties_database": {
+						"value": "[parameters('lls_azure_sql_properties_typeProperties_database')]"
+					},
+					"lls_azure_sql_properties_typeProperties_userName": {
+						"value": "[parameters('lls_azure_sql_properties_typeProperties_userName')]"
+					},
+					"ls_datalake_properties_typeProperties_url": {
+						"value": "[parameters('ls_datalake_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "1stProjectDataFactory_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"localRuntime_password": {
+						"value": "[parameters('localRuntime_password')]"
+					},
+					"localRuntime_properties_typeProperties_host": {
+						"value": "[parameters('localRuntime_properties_typeProperties_host')]"
+					},
+					"localRuntime_properties_typeProperties_userId": {
+						"value": "[parameters('localRuntime_properties_typeProperties_userId')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', '1stProjectDataFactory_ArmTemplate_0')]"
+			]
+		}
+	]
+}
