@@ -1,0 +1,19 @@
+{
+	"name": "getapidata",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "api details",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation",
+				"relativeUrl": "ritikparate/DataDump/refs/heads/main/DimAirport.json"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,118 @@
+{
+	"name": "API Ingestion",
+	"properties": {
+		"activities": [
+			{
+				"name": "Get API Data",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "GET",
+					"url": "https://raw.githubusercontent.com/ritikparate/DataDump/refs/heads/main/DimAirport.json"
+				}
+			},
+			{
+				"name": "Copy API",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Get API Data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "JsonSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "JsonReadSettings"
+						}
+					},
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['airport_id']"
+								},
+								"sink": {
+									"path": "$['airport_id']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['airport_name']"
+								},
+								"sink": {
+									"path": "$['airport_name']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['city']"
+								},
+								"sink": {
+									"path": "$['city']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['country']"
+								},
+								"sink": {
+									"path": "$['country']"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "getapidata",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_apisink",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2025-11-24T04:38:59Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,34 @@
+{
+	"name": "DS_Airline",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "DimPassenger.csv",
+				"folderPath": "OnPrem",
+				"fileSystem": "bronze"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "PAR1\u0015\u0000\u0015r\u0015h\u0015���\u000e\u001c\u0015\u0014\u0015\u0000\u0015\u0006\u0015\b\u0000\u00009(\u0002\u0000\u0000\u0000\u0014\u0001\u0001\u0000\u0000\u00001\u0001\u0005\u00002\u0001\u0005\u00003\u0001\u0005\u00004\u0001\u0005\u00005\u0001\u0005\u00006\u0001\u0005\u00007\u0001\u0005",
+				"type": "String"
+			},
+			{
+				"name": "8\u0001\u0000\u0000\u00009\u0002\u0000\u0000\u000010\u0015\u0000\u0015�\u0002\u0015�\u0002\u0015����\u0005\u001c\u0015\u0014\u0015\u0000\u0015\u0006\u0015\b\u0000\u0000�\u0001�\u0002\u0000\u0000\u0000\u0014\u0001\b\u0000\u0000\u0000John Doe\u000b\u0000\u0000\u0000Emily Clark",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
