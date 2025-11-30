@@ -155,7 +155,7 @@
 									"type": "JsonSource",
 									"additionalColumns": [
 										{
-											"name": "lastlaod",
+											"name": "lastload",
 											"value": {
 												"value": "@activity('maxoflatestload').output.firstRow.Latest_load",
 												"type": "Expression"
