@@ -199,13 +199,6 @@
 								"type": "LinkedServiceReference"
 							},
 							"name": "FactBookings"
-						},
-						{
-							"linkedService": {
-								"referenceName": "ls_datalake",
-								"type": "LinkedServiceReference"
-							},
-							"name": "Flights"
 						}
 					],
 					"sinks": [
@@ -229,13 +222,6 @@
 								"type": "LinkedServiceReference"
 							},
 							"name": "sink3"
-						},
-						{
-							"linkedService": {
-								"referenceName": "ls_datalake",
-								"type": "LinkedServiceReference"
-							},
-							"name": "sink4"
 						}
 					],
 					"transformations": [],
@@ -258,12 +244,6 @@
 						"     format: 'delta',",
 						"     fileSystem: 'silver',",
 						"     folderPath: 'Bookings') ~> FactBookings",
-						"source(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     ignoreNoFilesFound: false,",
-						"     format: 'delta',",
-						"     fileSystem: 'silver',",
-						"     folderPath: 'Flights') ~> Flights",
 						"Airline sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     format: 'delta',",
@@ -317,25 +297,7 @@
 						"     preCommands: [],",
 						"     postCommands: [],",
 						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink3",
-						"Flights sink(allowSchemaDrift: true,",
-						"     validateSchema: false,",
-						"     format: 'delta',",
-						"     fileSystem: 'gold',",
-						"     folderPath: 'Flights',",
-						"     mergeSchema: false,",
-						"     autoCompact: false,",
-						"     optimizedWrite: false,",
-						"     vacuum: 0,",
-						"     deletable: false,",
-						"     insertable: true,",
-						"     updateable: false,",
-						"     upsertable: false,",
-						"     umask: 0022,",
-						"     preCommands: [],",
-						"     postCommands: [],",
-						"     skipDuplicateMapInputs: true,",
-						"     skipDuplicateMapOutputs: true) ~> sink4"
+						"     skipDuplicateMapOutputs: true) ~> sink3"
 					]
 				}
 			},
@@ -494,11 +456,9 @@
 									"Airline": {},
 									"Passengers": {},
 									"FactBookings": {},
-									"Flights": {},
 									"sink1": {},
 									"sink2": {},
-									"sink3": {},
-									"sink4": {}
+									"sink3": {}
 								}
 							},
 							"staging": {},
@@ -683,7 +643,7 @@
 											"type": "JsonSource",
 											"additionalColumns": [
 												{
-													"name": "lastlaod",
+													"name": "lastload",
 													"value": {
 														"value": "@activity('maxoflatestload').output.firstRow.Latest_load",
 														"type": "Expression"
