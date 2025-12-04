@@ -92,6 +92,18 @@
 							"Skipped",
 							"Failed"
 						]
+					},
+					{
+						"activity": "ExecuteApi",
+						"dependencyConditions": [
+							"Failed"
+						]
+					},
+					{
+						"activity": "ExecuteOnPrem",
+						"dependencyConditions": [
+							"Failed"
+						]
 					}
 				],
 				"policy": {
@@ -112,6 +124,37 @@
 						"value": "{\n  \"pipeline_name\": \"@{pipeline().Pipeline}\",\n  \"pipeline_id\": \"@{pipeline().RunId}\",\n  \"Error_message\": \"@{activity('ExecuteIncremental').error.message}\",\n  \"status\": \"@{activity('ExecuteIncremental').Status}\"\n}\n",
 						"type": "Expression"
 					}
+				}
+			},
+			{
+				"name": "Silver Data Flow",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "ExecuteIncremental",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "Data Transformation",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
 				}
 			}
 		],
